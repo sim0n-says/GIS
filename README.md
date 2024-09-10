@@ -15,7 +15,7 @@ Les grilles hexagonales sont cruciales en analyse spatiale environnementale pour
     
     Connectivité des habitats : Modélise précisément les corridors écologiques, réduit la fragmentation, et améliore     l’analyse des flux de populations et des échanges génétiques.
     
-Ces caractéristiques rendent les grilles hexagonales particulièrement efficaces pour les études environnementales et la conservation des écosystèmes.
+Ces caractéristiques rendent les grilles hexagonales particulièrement efficaces pour les études environnementales.
 
 #HexagonalGrid #SpatialAnalysis #EnvironmentalScience #Biodiversity #ResourceManagement #ClimateStudies #HabitatConnectivity #GIS #QGIS #ConservationPlanning #Shapefile
 
