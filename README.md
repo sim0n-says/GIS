@@ -1,6 +1,7 @@
 # Hexagonal Grid Generator
 
 Ce projet génère une grille hexagonale basée sur une couche de projet QGIS ou un fichier de forme.
+
 Les grilles hexagonales sont cruciales en analyse spatiale environnementale pour plusieurs raisons :
 
     Uniformité et couverture complète : Elles garantissent une analyse précise sans espaces vides.
