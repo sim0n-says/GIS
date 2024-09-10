@@ -1,55 +1,75 @@
-# Hexagonal Grid Generator
-
-Ce projet génère une grille hexagonale basée sur une couche de projet QGIS ou un fichier de forme.
-
-Les grilles hexagonales sont cruciales en analyse spatiale environnementale pour plusieurs raisons :
-
-    Uniformité et couverture complète : Elles garantissent une analyse précise sans espaces vides.
-    
-    Distance constante entre les centres : Facilite les calculs de proximité et de voisinage.
-    
-    Réduction des effets de bord : Améliore la modélisation des phénomènes naturels.
-    
-    Applications spécifiques : Utilisées pour le suivi de la biodiversité, la gestion des ressources naturelles et les études climatiques.
-    
-    Visualisation esthétique : Offre une représentation intuitive et compréhensible des données.
-    
-    Connectivité des habitats : Modélise précisément les corridors écologiques, réduit la fragmentation, et améliore     l’analyse des flux de populations et des échanges génétiques.
-    
-Ces caractéristiques rendent les grilles hexagonales particulièrement efficaces pour les études environnementales.
-
-#HexagonalGrid #SpatialAnalysis #EnvironmentalScience #Biodiversity #ResourceManagement #ClimateStudies #HabitatConnectivity #GIS #QGIS #ConservationPlanning #Shapefile
-
-
-## Prérequis
-
-- Python 3.x
-- PyQt5
-- QGIS
-- Fiona
-
-## Installation
-
-1. Clonez le dépôt :
-    ```bash
-    git clone https://github.com/sim0n-says/GIS.git
-    cd votre-repo
-    ```
-
-2. Installez les dépendances :
-    ```bash
-    pip install -r requirements.txt
-    ```
+# HEXABIN - Générateur de grille hexagonales
 
 ## Utilisation
 
-1. Exécutez le script :
-    ```bash
-    python HEXABIN_0.1.py
+Pour exécuter le script dans QGIS, suivez les étapes suivantes :
+
+1. Ouvrez QGIS.
+2. Allez dans le menu `Plugins` et sélectionnez `Python Console`.
+3. Dans la console Python, exécutez le script en utilisant la commande suivante :
+    ```python
+    exec(open('chemin/vers/HEXABIN_0.1.py').read())
     ```
 
-2. Suivez les instructions dans l'interface utilisateur pour sélectionner une couche ou un fichier shapefile, définir la superficie des hexagones, et choisir un fichier de sortie.
+Remplacez `chemin/vers/HEXABIN_0.1.py` par le chemin réel vers votre script.
 
-## Licence
+## Description
 
-Ce projet est sous licence Unlicense. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Ce script génère une grille hexagonale et utilise QGIS pour manipuler les données géospatiales. Il utilise également PyQt5 pour l'interface utilisateur.
+
+### Importance des grilles hexagonales en analyse spatiale environnementale
+
+Les grilles hexagonales sont cruciales en analyse spatiale environnementale pour plusieurs raisons :
+
+- **Uniformité et couverture complète** : Elles garantissent une analyse précise sans espaces vides.
+- **Distance constante entre les centres** : Facilite les calculs de proximité et de voisinage.
+- **Réduction des effets de bord** : Améliore la modélisation des phénomènes naturels.
+- **Applications spécifiques** : Utilisées pour le suivi de la biodiversité, la gestion des ressources naturelles et les études climatiques.
+- **Visualisation esthétique** : Offre une représentation intuitive et compréhensible des données.
+- **Connectivité des habitats** : Modélise précisément les corridors écologiques, réduit la fragmentation, et améliore l’analyse des flux de populations et des échanges génétiques.
+
+Ces caractéristiques rendent les grilles hexagonales particulièrement efficaces pour les études environnementales.
+
+## Configuration de la journalisation
+
+Le script configure la journalisation pour écrire dans un fichier `hexgrid.log` situé dans le même répertoire que le script. La journalisation utilise un gestionnaire de fichiers rotatifs pour limiter la taille du fichier de log à 5 Mo et conserver jusqu'à 2 fichiers de sauvegarde.
+
+### Exemple de configuration de la journalisation
+
+```python
+# Obtenir le répertoire du script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Configurer la journalisation pour écrire dans un fichier dans le même répertoire que le script
+log_file = os.path.join(script_dir, 'hexgrid.log')
+
+# Configurer le gestionnaire de fichiers rotatifs
+handler = RotatingFileHandler(log_file, maxBytes=5*1024*1024, backupCount=2)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+handler.setFormatter(formatter)
+
+# Configurer la journalisation
+logging.basicConfig(
+    level=logging.DEBUG,
+    handlers=[handler]
+)
+
+# Créer un logger
+logger = logging.getLogger()
+```
+## Gestion des exceptions
+Le script utilise un hook d'exception pour journaliser les exceptions non interceptées et terminer le script proprement.
+
+### Exemple de gestion des exceptions
+```python
+def handle_exception(exc_type, exc_value, exc_traceback):
+    """Journaliser les exceptions non interceptées et terminer le script."""
+    if issubclass(exc_type, KeyboardInterrupt):
+        # Ne pas journaliser KeyboardInterrupt pour éviter d'encombrer le fichier de log
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+
+    logger.error(
+        "Exception non interceptée",
+        exc_info=(exc_type, exc_value, exc_traceback)
+    )
+    
