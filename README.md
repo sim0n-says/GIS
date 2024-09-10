@@ -72,4 +72,6 @@ def handle_exception(exc_type, exc_value, exc_traceback):
         "Exception non interceptée",
         exc_info=(exc_type, exc_value, exc_traceback)
     )
-    
+```
+## Mots clés / Keywords
+#HexagonalGrid #SpatialAnalysis #EnvironmentalScience #Biodiversity #ResourceManagement #ClimateStudies #HabitatConnectivity #GIS #QGIS #ConservationPlanning #Shapefile #Python #PyQt5 #QGISCore #Fiona #Logging #ExceptionHandling #RotatingFileHandler #ThreadPoolExecutor #GeospatialData #DataVisualization #ProximityCalculations #NaturalPhenomenaModeling #EcologicalCorridors #PopulationFlowAnalysis #GeneticExchangeAnalysis
